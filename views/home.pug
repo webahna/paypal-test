@@ -1,0 +1,111 @@
+doctype html
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet", href="btnPayment.css")
+        script(src="https://kit.fontawesome.com/1667a34085.js" crossorigin="anonymous")
+        script(src="https://cdn.tailwindcss.com")
+        -// https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&components=buttons,funding-eligibility
+        script(src=`https://www.paypal.com/sdk/js?client-id=${clientId}&components=buttons,funding-eligibility&currency=MXN&locale=es_MX` data-client-token=clientToken)
+    body(class="bg-[#F9FAFB]")
+        div(class="w-full pb-72 md:pb-4 pt-20 md:pt-28 transition duration-300  h-screen md:h-auto relative" id="ctn-contenido")
+            div(class="w-full max-w-[1200px] mx-auto pb-8 ")
+                div(class="w-full flex items-center justify-center")
+                    div(class="flex gap-2 md:gap-4")
+                        div(class="flex flex-col items-start md:items-center gap-1")
+                            p(class="w-20 md:w-28 text-start md:text-center text-ec md:text-xs font-medium md:-translate-x-10 text-[#55B685]") Dir. de envío y facturación
+                            div(class="flex gap-2 md:gap-4")
+                                div(class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#55B685] flex justify-center items-center")
+                                    i(class="fa-solid fa-check" style="color: #ffffff;")
+                                div(class="flex items-center")
+                                    div(class="w-16 h-[2px] bg-[#55B685]")
+                        
+                        div(class="flex flex-col items-center justify-end gap-1 ")
+                            p(class="w-10 md:w-auto text-center text-ec md:text-xs font-medium -translate-x-9 md:-translate-x-10 text-[#55B685]") Envío
+                            div(class="flex gap-2 md:gap-4")
+                                div(class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#55B685] flex justify-center items-center")
+                                    i(class="fa-solid fa-check" style="color: #ffffff;")
+                                div(class="flex items-center")
+                                    div(class="w-16 h-[2px] bg-[#55B685]")
+                        div(class=" flex flex-col justify-end gap-1 animate-pulse")
+                            p(class="text-center text-ec md:text-xs font-medium") Pago
+                            div(class="flex")
+                                div(class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#55B685] flex justify-center items-center")
+                                    i(class="fa-solid fa-spinner fa-spin" style="color: #ffffff")
+
+            div(class="w-full max-w-[1200px] h-full px-4 mx-auto flex overflow-auto rounded-lg")
+                form(enctype="multipart/form-data" action=``, method="post" class="w-full" id="payment-form")
+                    
+                    div(class="w-full flex flex-col md:flex-row gap-4 md:gap-6")
+                        div(class="w-full md:w-4/6 flex flex-col gap-4 md:gap-6")
+
+                            //- Nueva direccion
+                            div(class=`relative transition duration-300 ease-out w-full p-4 md:p-6 bg-white shadow-[0_0_30px_-12px_rgba(179,193,217,.3)] rounded-lg }`)
+                                div(class="flex flex-col gap-4 text-xs")
+                                    h3(class="text-base font-medium") Pago
+                                    span Ingresa tus datos de pago
+                                    div(class="w-full flex flex-col gap-4")
+                                        
+                                        <div id="paypal-button-container" class="paypal-button-container"></div>
+                                        div(id="error-messages")
+                                    
+                                                            
+
+                                    
+                                    
+
+                        div(class="w-full md:w-2/6 flex flex-col gap-4 md:gap-6")
+                            div(class="w-full flex flex-col md:flex-col-reverse gap-4 md:gap-6")      
+                                
+                                div(class="w-full p-6 bg-white shadow-[0_0_30px_-12px_rgba(179,193,217,.3)] rounded-lg")
+                                    div(class="flex flex-col gap-4 text-xs")
+                                        div
+                                            h3(class="text-base font-medium") Revisión de carrito
+                                            span(class="" id="totalElementsCart")=`2 productos`
+                                            div(class="w-full mt-4 flex flex-col gap-4 max-h-[150px] overflow-auto snap-proximity" id="ctnCartElements")
+                                                each producto, index in [1,2]
+                                                    div(class="w-full h-28 border border-[#E5E5E5] rounded-lg flex p-4 snap-center")
+                                                        div(class="w-20 h-20 min-w-[80px] h-full bg-[#F2F2F2] rounded-lg px-[10px] py-5 flex justify-center items-center")
+                                                            
+                                                        div(class="pl-4 flex flex-col justify-center")
+                                                            div(class="w-full max-h-[30px] overflow-hidden")
+                                                                p(class="text-[10px]") Cerradura castelli negro
+                                                            span(class="text-xs font-rubik") $ 
+                                                                span(class="precioCard") 1922
+                                                            span(class="text-[10px]") Cantidad: 
+                                                                span 2
+                                                            
+                                    
+                            //- Resumen
+                            
+                            div(class="w-full fixed left-0 bottom-0 z-20 shadow-[0_0_30px_-12px_rgba(179,193,217,.3)] md:static md:shadow-none  p-6 bg-white rounded-large md:rounded-lg" id="ctnResumen")
+                                div(class="flex flex-col gap-4 text-xs")
+                                    h3(class="text-base font-medium") Resumen
+                                    div(class="flex flex-col gap-2")
+                                        div(class="w-full flex justify-between")
+                                            span() Subtotal
+                                            span(class="font-rubik") $ 
+                                                span(id="subtotal") 1233.00
+                                        div(class="w-full flex justify-between")
+                                            span() Descuento
+                                            span(class="font-rubik")  -$ 
+                                                span(id="descuento") 0.00
+                                        div(class="w-full flex justify-between")
+                                            span() Envío
+                                            span(class="font-rubik") $ 
+                                                span(id="envio") 187.00
+                                        div(class="w-full h-[1px] bg-[#E5E7EB]")
+                                        div(class="w-full flex justify-between text-base")
+                                            span() Total
+                                            span(class="font-rubik font-medium") $ 
+                                                span(id="total") 1580.00
+                                    //- button(type="submit" class="transition duration-500 ease-out w-full h-12 bg-[#212936] rounded-lg font-rubik text-white text-xl mt-4")
+                                    //-     span() Pagar
+                                    div(class="relative w-full h-12 flex justify-center items-center")
+                                        div(class="w-full containter flex justify-center items-center")
+                                            button(type="submit" id="button" class="button bg-[#212936] after:content-['Pagar'] after:text-xs")
+        
+        <script src="app.js"></script>
